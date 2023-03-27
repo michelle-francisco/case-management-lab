@@ -1,0 +1,15 @@
+﻿{
+    "Information": [
+        {
+            "ParameterName": "APIOptions",
+            "Description": "Options for the API Gateway",
+            "DefaultValue": "{ \"case-managment-lab\": \"CaseMangementAPIGateway\" }"
+        }
+    ],
+    "profile": "",
+    "region": "us-west-2",
+    "configuration": "Release",
+    "s3-prefix": "case-management-lab/",
+    "template": "serverless.template",
+    "template-parameters": ""
+}

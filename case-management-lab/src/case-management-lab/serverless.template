@@ -1,0 +1,110 @@
+﻿{
+  "AWSTemplateFormatVersion": "2010-09-09",
+  "Transform": "AWS::Serverless-2016-10-31",
+  "Description": "An AWS Serverless Application.",
+  "Resources": {
+    "GetCaseFunction": {
+      "Type": "AWS::Serverless::Function",
+      "Properties": {
+        "Handler": "case-management-lab::case_management_lab.Functions::Get",
+        "Runtime": "dotnet6",
+        "MemorySize": 256,
+        "Timeout": 30,
+        "Policies": [
+          "AWSLambdaBasicExecutionRole"
+        ],
+        "Events": {
+          "RootGet": {
+            "Type": "Api",
+            "Properties": {
+              "Path": "/",
+              "Method": "GET"
+            }
+          }
+        }
+      }
+    },
+    "CaseManagementAPI": {
+      "Type": "AWS::ApiGateway::RestApi",
+      "Properties": {
+        "Name": "CaseManagementAPI"
+      }
+    },
+    "CaseResource": {
+      "Type": "AWS::ApiGateway::Resource",
+      "Properties": {
+        "RestApiId": {
+          "Ref": "CaseManagementAPI"
+        },
+        "ParentId": {
+          "Fn::GetAtt": [
+            "CaseManagementAPI",
+            "RootResourceId"
+          ]
+        },
+        "PathPart": "case"
+      }
+    },
+    "CaseGetMethod": {
+      "Type": "AWS::ApiGateway::Method",
+      "Properties": {
+        "RestApiId": {
+          "Ref": "CaseManagementAPI"
+        },
+        "ResourceId": {
+          "Ref": "CaseResource"
+        },
+        "HttpMethod": "GET",
+        "AuthorizationType": "NONE",
+        "Integration": {
+          "Type": "AWS_PROXY",
+          "IntegrationHttpMethod": "POST",
+          "Uri": {
+            "Fn::Sub": "arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${GetCaseFunction.Arn}/invocations"
+          }
+        },
+        "MethodResponses": [
+          {
+            "StatusCode": 200
+          }
+        ]
+      }
+    },
+    "CaseManagementAPIDeployment": {
+      "Type": "AWS::ApiGateway::Deployment",
+      "DependsOn": [
+        "CaseGetMethod"
+      ],
+      "Properties": {
+        "RestApiId": {
+          "Ref": "CaseManagementAPI"
+        },
+        "StageName": "prod"
+      }
+    },
+    "APIGatewayPermission": {
+      "Type": "AWS::Lambda::Permission",
+      "Properties": {
+        "FunctionName": {
+          "Fn::GetAtt": [
+            "GetCaseFunction",
+            "Arn"
+          ]
+        },
+        "Action": "lambda:InvokeFunction",
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": {
+          "Fn::Sub": "arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${CaseManagementAPI}/*/GET/case"
+        }
+      }
+    }
+  },
+  "Outputs": {
+    "ApiURL": {
+      "Description": "API endpoint URL for Prod environment",
+      "Value": {
+        "Fn::Sub": "https://${CaseManagementAPI}.execute-api.${AWS::Region}.amazonaws.com/prod/"
+      }
+    }
+  }
+}
