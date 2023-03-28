@@ -3,7 +3,7 @@
         {
             "ParameterName": "APIOptions",
             "Description": "Options for the API Gateway",
-            "DefaultValue": "{ \"case-managment-lab\": \"CaseMangementAPIGateway\" }"
+            "DefaultValue": "{ \"case-managment-lab\": \"CaseManagementAPI\" }"
         }
     ],
     "profile": "",

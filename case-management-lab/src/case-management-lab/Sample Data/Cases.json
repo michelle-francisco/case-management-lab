@@ -1,0 +1,52 @@
+﻿[
+    {
+        "case_id": { "S": "d84a2a7c-fa4f-4e52-a8b2-2d06f72043ab" },
+        "name": { "S": "Smith v. Johnson" },
+        "description": { "S": "This case involves a dispute over property rights." },
+        "status": { "S": "ongoing" },
+        "assignedTo": { "S": "Judge Smith" },
+        "createdBy": { "S": "Attorney Jones" },
+        "createdAt": { "S": "2022-02-15T14:30:00Z" },
+        "updatedAt": { "S": "2022-02-22T16:45:00Z" }
+    },
+    {
+        "case_id": { "S": "6db45ba1-c931-46b2-a940-8e28a7a1a184" },
+        "name": { "S": "Brown v. White" },
+        "description": { "S": "This case involves a breach of contract." },
+        "status": { "S": "pending" },
+        "assignedTo": { "S": "Judge Johnson" },
+        "createdBy": { "S": "Attorney Brown" },
+        "createdAt": { "S": "2022-03-05T09:15:00Z" },
+        "updatedAt": { "S": "2022-03-08T11:20:00Z" }
+    },
+    {
+        "case_id": { "S": "e2b56c3f-22e5-49e7-b06f-d8b3ab202d95" },
+        "name": { "S": "Davis v. Lee" },
+        "description": { "S": "This case involves a personal injury claim." },
+        "status": { "S": "settled" },
+        "assignedTo": { "S": "Judge Lee" },
+        "createdBy": { "S": "Attorney Davis" },
+        "createdAt": { "S": "2021-12-10T10:00:00Z" },
+        "updatedAt": { "S": "2022-01-20T14:25:00Z" }
+    },
+    {
+        "case_id": { "S": "c586d38d-f1cc-44b8-a7f6-f13c0d7f3ca3" },
+        "name": { "S": "Smith vs. Johnson" },
+        "description": { "S": "A civil suit filed by Mr. Smith against Mr. Johnson for breach of contract." },
+        "status": { "S": "Open" },
+        "assignedTo": { "S": "John Doe" },
+        "createdBy": { "S": "Jane Doe" },
+        "createdAt": { "S": "2022-03-15T10:30:00Z" },
+        "updatedAt": { "S": "2022-03-15T10:30:00Z" }
+    },
+    {
+        "case_id": { "S": "4a1906d5-6b1f-4a90-8b01-4e6b3eb6ce5d" },
+        "name": { "S": "State vs. Johnson" },
+        "description": { "S": "A criminal case filed by the State against Mr. Johnson for embezzlement." },
+        "status": { "S": "Closed" },
+        "assignedTo": { "S": "John Smith" },
+        "createdBy": { "S": "Mary Johnson" },
+        "createdAt": { "S": "2021-07-01T14:00:00Z" },
+        "updatedAt": { "S": "2021-08-25T11:45:00Z" }
+    }
+]

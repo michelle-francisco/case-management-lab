@@ -17,7 +17,7 @@ Resources:
           Properties:
             Path: /
             Method: GET
-      CodeUri: s3://case-management-bucket/c15ca63f8c761b474a89a82af28a0353
+      CodeUri: s3://case-management-stage1-bucket/e9521a9e360eac8ac232ec668efc9b70
     Metadata:
       SamResourceId: GetCaseFunction
   CaseManagementAPI:
