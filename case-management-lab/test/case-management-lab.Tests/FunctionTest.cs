@@ -1,31 +1,43 @@
 using Xunit;
-using Amazon.Lambda.Core;
-using Amazon.Lambda.TestUtilities;
+using case_management_lab;
+using case_management_lab.Models;
 using Amazon.Lambda.APIGatewayEvents;
-
+using Amazon.Lambda.TestUtilities;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using System.Net;
+using Amazon.DynamoDBv2;
+using Amazon.Lambda.Core;
 
 namespace case_management_lab.Tests;
 
 public class FunctionTest
 {
+    private readonly Functions _functions;
+
     public FunctionTest()
     {
+        // Use a new instance of the DynamoDBContext for each test
+        var dbContext = new Amazon.DynamoDBv2.DataModel.DynamoDBContext(
+            new AmazonDynamoDBClient());
+        _functions = new Functions(dbContext);
     }
 
     [Fact]
-    public void TestGetMethod()
+    public async Task Get_ReturnsBadRequest_WhenIdParameterIsMissing()
     {
-        TestLambdaContext context;
-        APIGatewayProxyRequest request;
-        APIGatewayProxyResponse response;
+        // Arrange
+        var request = new APIGatewayProxyRequest
+        {
+        };
 
-        Functions functions = new Functions();
+        var context = new TestLambdaContext();
 
+        // Act
+        var response = await _functions.Get(request, context);
 
-        request = new APIGatewayProxyRequest();
-        context = new TestLambdaContext();
-        response = functions.Get(request, context);
-        Assert.Equal(200, response.StatusCode);
-        Assert.Equal("Hello AWS Serverless", response.Body);
+        // Assert
+        Assert.Equal((int)HttpStatusCode.BadRequest, response.StatusCode);
+        Assert.Equal("Missing id parameter in request path", response.Body);
     }
 }

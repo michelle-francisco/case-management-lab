@@ -9,7 +9,7 @@
     "profile": "",
     "region": "us-west-2",
     "configuration": "Release",
-    "s3-prefix": "case-management-lab/",
+    "s3-prefix": "mf-0330-case-management-lab/",
     "template": "serverless.template",
     "template-parameters": ""
 }

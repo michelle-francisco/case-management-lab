@@ -1,7 +1,7 @@
 ﻿{
   "AWSTemplateFormatVersion": "2010-09-09",
   "Transform": "AWS::Serverless-2016-10-31",
-  "Description": "An AWS Serverless Application.",
+  "Description": "AWS Serverless APP for Case Management Lab",
   "Resources": {
     "GetCaseFunction": {
       "Type": "AWS::Serverless::Function",
@@ -11,13 +11,23 @@
         "MemorySize": 256,
         "Timeout": 30,
         "Policies": [
-          "AWSLambdaBasicExecutionRole"
+          "AWSLambdaBasicExecutionRole",
+          {
+            "DynamoDBReadPolicy": {
+              "TableName": "Case",
+              "Actions": [
+                "dynamodb:GetItem",
+                "dynamodb:Query",
+                "dynamodb:Scan"
+               ]
+             }
+          }
         ],
         "Events": {
           "RootGet": {
             "Type": "Api",
             "Properties": {
-              "Path": "/",
+              "Path": "/cases/{id}",
               "Method": "GET"
             }
           }
@@ -42,7 +52,7 @@
             "RootResourceId"
           ]
         },
-        "PathPart": "case"
+        "PathPart": "cases"
       }
     },
     "CaseGetMethod": {
@@ -94,7 +104,7 @@
         "Action": "lambda:InvokeFunction",
         "Principal": "apigateway.amazonaws.com",
         "SourceArn": {
-          "Fn::Sub": "arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${CaseManagementAPI}/*/GET/case"
+          "Fn::Sub": "arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${CaseManagementAPI}/*/GET/cases"
         }
       }
     }
@@ -104,6 +114,15 @@
       "Description": "API endpoint URL for Prod environment",
       "Value": {
         "Fn::Sub": "https://${CaseManagementAPI}.execute-api.${AWS::Region}.amazonaws.com/prod/"
+      }
+    },
+    "GetCaseFunctionARN": {
+      "Description": "ARN of the GetCaseFunction Lambda Function",
+      "Value": {
+         "Fn::GetAtt": [
+           "GetCaseFunction",
+           "Arn"
+         ]
       }
     }
   }

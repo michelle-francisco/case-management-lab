@@ -1,6 +1,6 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
-Description: An AWS Serverless Application.
+Description: AWS Serverless APP for Case Management Lab
 Resources:
   GetCaseFunction:
     Type: AWS::Serverless::Function
@@ -11,13 +11,19 @@ Resources:
       Timeout: 30
       Policies:
       - AWSLambdaBasicExecutionRole
+      - DynamoDBReadPolicy:
+          TableName: Case
+          Actions:
+          - dynamodb:GetItem
+          - dynamodb:Query
+          - dynamodb:Scan
       Events:
         RootGet:
           Type: Api
           Properties:
-            Path: /
+            Path: /cases/{id}
             Method: GET
-      CodeUri: s3://case-management-stage1-bucket/e9521a9e360eac8ac232ec668efc9b70
+      CodeUri: s3://mf-0330-case-management-lab/a9313d7a30ba9e1b9c6e052d566ea2b4
     Metadata:
       SamResourceId: GetCaseFunction
   CaseManagementAPI:
@@ -35,7 +41,7 @@ Resources:
         Fn::GetAtt:
         - CaseManagementAPI
         - RootResourceId
-      PathPart: case
+      PathPart: cases
     Metadata:
       SamResourceId: CaseResource
   CaseGetMethod:
@@ -76,7 +82,7 @@ Resources:
       Action: lambda:InvokeFunction
       Principal: apigateway.amazonaws.com
       SourceArn:
-        Fn::Sub: arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${CaseManagementAPI}/*/GET/case
+        Fn::Sub: arn:aws:execute-api:${AWS::Region}:${AWS::AccountId}:${CaseManagementAPI}/*/GET/cases
     Metadata:
       SamResourceId: APIGatewayPermission
 Outputs:
@@ -84,3 +90,9 @@ Outputs:
     Description: API endpoint URL for Prod environment
     Value:
       Fn::Sub: https://${CaseManagementAPI}.execute-api.${AWS::Region}.amazonaws.com/prod/
+  GetCaseFunctionARN:
+    Description: ARN of the GetCaseFunction Lambda Function
+    Value:
+      Fn::GetAtt:
+      - GetCaseFunction
+      - Arn
