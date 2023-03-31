@@ -6,6 +6,7 @@ Resources:
     Type: AWS::Serverless::Function
     Properties:
       Handler: case-management-lab::case_management_lab.Functions::Get
+      CodeUri: s3://mf-0330-case-management-lab/4d6be20cd2545358e3641132e4324d3b
       Runtime: dotnet6
       MemorySize: 256
       Timeout: 30
@@ -23,7 +24,6 @@ Resources:
           Properties:
             Path: /cases/{id}
             Method: GET
-      CodeUri: s3://mf-0330-case-management-lab/a9313d7a30ba9e1b9c6e052d566ea2b4
     Metadata:
       SamResourceId: GetCaseFunction
   CaseManagementAPI:
