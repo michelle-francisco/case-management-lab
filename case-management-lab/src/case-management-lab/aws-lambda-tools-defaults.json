@@ -7,9 +7,9 @@
         }
     ],
     "profile": "",
-    "region": "us-west-2",
+    "region": "us-west-2", // change to the region you selected for your s3 buckets
     "configuration": "Release",
-    "s3-prefix": "case-management-lab/",
+    "s3-prefix": "case-management-lab/", // your globally unique s3 prefix
     "template": "serverless.template",
     "template-parameters": ""
 }
