@@ -40,6 +40,7 @@ public class Functions
         // Extract the id from the request body
         if (request.PathParameters == null || !request.PathParameters.TryGetValue("id", out string? id))
         {
+            context.Logger.LogError("Missing id parameter in request path");
             return new APIGatewayProxyResponse
             {
                 StatusCode = (int)HttpStatusCode.BadRequest,
