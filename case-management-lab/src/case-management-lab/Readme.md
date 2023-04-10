@@ -1,47 +1,9 @@
-﻿# Empty AWS Serverless Application Project
+<h1>This project is for a hands-on lab for Creating and Deploying Lambdas with API Gateway using Infrastructre as Code.</h1>
 
-This starter project consists of:
-* serverless.template - an AWS CloudFormation Serverless Application Model template file for declaring your Serverless functions and other AWS resources
-* Function.cs - class file containing the C# method mapped to the single function declared in the template file
-* aws-lambda-tools-defaults.json - default argument settings for use with Visual Studio and command line deployment tools for AWS
+This course was created for a hands-on lab presented by [slalom_build](https://www.slalombuild.com/).
 
-You may also have a test project depending on the options selected.
+At the end of this lab, you will be able to write and configure AWS Lambdas, create an API Gateway, and connect your Lambdas to a DynamoDB instance. We will deploy these assets using Infrastructure as Code (IaC). 
 
-The generated project contains a Serverless template declaration for a single AWS Lambda function that will be exposed through Amazon API Gateway as a HTTP *Get* operation. Edit the template to customize the function or add more functions and other resources needed by your application, and edit the function code in Function.cs. You can then deploy your Serverless application.
+The starter code is in the `main` branch. It includes all dependencies required. The completed code is in the `in-person-lab-complete` branch.
 
-## Here are some steps to follow from Visual Studio:
-
-To deploy your Serverless application, right click the project in Solution Explorer and select *Publish to AWS Lambda*.
-
-To view your deployed application open the Stack View window by double-clicking the stack name shown beneath the AWS CloudFormation node in the AWS Explorer tree. The Stack View also displays the root URL to your published application.
-
-## Here are some steps to follow to get started from the command line:
-
-Once you have edited your template and code you can deploy your application using the [Amazon.Lambda.Tools Global Tool](https://github.com/aws/aws-extensions-for-dotnet-cli#aws-lambda-amazonlambdatools) from the command line.
-
-Install Amazon.Lambda.Tools Global Tools if not already installed.
-```
-    dotnet tool install -g Amazon.Lambda.Tools
-```
-
-If already installed check if new version is available.
-```
-    dotnet tool update -g Amazon.Lambda.Tools
-```
-
-Execute unit tests
-```
-    cd "case-management-lab/test/case-management-lab.Tests"
-    dotnet test
-```
-
-Deploy application
-```
-    cd "case-management-lab/src/case-management-lab"
-    dotnet lambda deploy-serverless
-```
-## Arm64
-
-Arm64 support is provided by the AWS Graviton2 processor. For many Lambda workloads Graviton2 provides the best price performance.
-
-If you want to run your Lambda on a Graviton2 Arm64 processor, all you need to do is replace `x86_64` with `arm64` under `"Architectures": ` in the `serverless.template` file. Then deploy as described above. 
+<b><img width="18" alt="image" src="https://user-images.githubusercontent.com/50638786/230966530-e89d784e-5f99-4223-9177-3ed06a316d2f.png">2023 Slalom. All Rights Reserved. Proprietary and Confidential.</b> 
